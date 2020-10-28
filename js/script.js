@@ -1,7 +1,7 @@
 const loginBtn = document.getElementById("loginBtn");
 const signupBtn = document.getElementById("signupBtn");
 let firstname, lastname, email, password1, password2;
-let validationStatus = { firstname: false, lastname: false, email: true, password1: false, password2: false};
+let validationStatus = { firstname: false, lastname: false, email: false, password1: false, password2: false};
 
 function validateInput(val, name) {
   if(name === "firstname"){
@@ -30,6 +30,15 @@ function validateInput(val, name) {
   }
   else if(name === "email"){
     email = val;
+    // let mailformat = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
+    let mailformat = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i;
+      if(!email.match(mailformat)){
+        document.getElementById(`${name}-error`).style.display = "block";
+        validationStatus[name] = false;
+      }else if(email.match(mailformat)) {
+        document.getElementById(`${name}-error`).style.display = "none";
+        validationStatus[name] = true;
+      }
   }
   else if(name === "password1"){
     password1 = val;
@@ -55,8 +64,9 @@ function validateInput(val, name) {
   }
 }
 
+
 const handleDisabled = data => {
   const arr = Object.values(data);
   console.log(arr);
-  arr.includes(false) ? signupBtn.setAttribute("disabled") : signupBtn.removeAttribute("disabled");
+  arr.includes(false) ? signupBtn.setAttribute("disabled", true) : signupBtn.removeAttribute("disabled");
 }
