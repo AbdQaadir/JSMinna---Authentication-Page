@@ -1,72 +1,58 @@
 const loginBtn = document.getElementById("loginBtn");
 const signupBtn = document.getElementById("signupBtn");
-let firstname, lastname, email, password1, password2;
-let validationStatus = { firstname: false, lastname: false, email: false, password1: false, password2: false};
+let firstname, lastname, email, password, password2;
+let validationStatus = { firstname: false, lastname: false, email: false, password: false, password2: false};
 
-function validateInput(val, name) {
+// Method to handle the change in the form
+const handleChange = (val, name) => {
   if(name === "firstname"){
     firstname = val;
-    if(/\d/.test(val) || val.length <= 7){
-      document.getElementById(`${name}-error`).style.display = "block";  
-      validationStatus[name] = false;
-      handleDisabled(validationStatus);
-    }
-    else{
-      document.getElementById(`${name}-error`).style.display = "none";
-      validationStatus[name] = true;
-    }
-    handleDisabled(validationStatus);
+    const condition = /\d/.test(val) || val.length <= 7;
+    validateInput(name, condition );
   }
   else if(name === "lastname"){
     lastname = val;
-    if(/\d/.test(val) || val.length <= 7){
-      document.getElementById(`${name}-error`).style.display = "block";
-      validationStatus[name] = false;
-    } else{
-      document.getElementById(`${name}-error`).style.display = "none";
-      validationStatus[name] = true
-    }
-    handleDisabled(validationStatus);
+    const condition = /\d/.test(val) || val.length <= 7;
+    validateInput(name, condition );
   }
   else if(name === "email"){
     email = val;
-    // let mailformat = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
     let mailformat = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i;
-      if(!email.match(mailformat)){
-        document.getElementById(`${name}-error`).style.display = "block";
-        validationStatus[name] = false;
-      }else if(email.match(mailformat)) {
-        document.getElementById(`${name}-error`).style.display = "none";
-        validationStatus[name] = true;
-      }
+    const condition = !email.match(mailformat);
+    validateInput(name, condition );
   }
-  else if(name === "password1"){
-    password1 = val;
-    if(password1.length <= 7){
-      document.getElementById(`${name}-error`).style.display = "block";
-      validationStatus[name] = false;
-    } else{
-      document.getElementById(`${name}-error`).style.display = "none";
-      validationStatus[name] = true
-    }
-    handleDisabled(validationStatus);
+  else if(name === "password"){
+    password = val;
+    const condition = password.length <= 7;
+    validateInput(name, condition );
   }
   else if(name === "password2"){
     password2 = val;
-    if(password2 !== password1){
-      document.getElementById(`${name}-error`).style.display = "block";
-      validationStatus[name] = false;
-    } else{
-      document.getElementById(`${name}-error`).style.display = "none";
-      validationStatus[name] = true
-    }
-     handleDisabled(validationStatus)
+    const condition = password2 !== password;
+    validateInput(name, condition);
   }
 }
 
+// Method to validate each input
+const validateInput = (name, condition) => {
+  if(condition){
+    document.getElementById(`${name}-error`).style.display = "block";  
+    validationStatus[name] = false;
+  }
+  else{
+    document.getElementById(`${name}-error`).style.display = "none";
+    validationStatus[name] = true;
+  }
+  handleDisabled(validationStatus);
+}
 
+// Method to handle disabling of element
 const handleDisabled = data => {
   const arr = Object.values(data);
-  console.log(arr);
-  arr.includes(false) ? signupBtn.setAttribute("disabled", true) : signupBtn.removeAttribute("disabled");
+  if(signupBtn){
+    arr.includes(false) ? signupBtn.setAttribute("disabled", true) : signupBtn.removeAttribute("disabled");
+  }
+  else if(loginBtn){
+    validationStatus.email === true && validationStatus.password === true ? loginBtn.removeAttribute("disabled") : loginBtn.setAttribute("disabled", true);
+  }
 }

@@ -42,29 +42,32 @@
             <form
               name="login-form"
               action=""
-              onsubmit="return validateForm()"
               method="POST"
             >
               <div class="row">
-                <div class="col-10">
+                <div class="col-10 my-3">
                   <label for="email">Email Address</label>
                   <input
                     type="text"
                     name="email"
                     id="email"
                     placeholder="test@gmail.com"
+                    onkeyup="handleChange(this.value, this.name);"
                   />
+                  <span class="error" id="email-error">Password mustn't be less than 8 characters</span>
                 </div>
               </div>
               <div class="row">
-                <div class="col-10">
-                  <label for="password1">Enter password</label>
+                <div class="col-10 my-3">
+                  <label for="password">Enter password</label>
                   <input
                     type="password"
-                    name="password1"
-                    id="password1"
+                    name="password"
+                    id="password"
                     placeholder="* * * * * * * *"
+                    onkeyup="handleChange(this.value, this.name);"
                   />
+                  <span class="error" id="password-error">Password mustn't be less than 8 characters</span>
                 </div>
               </div>
               <p>Don't have an account? <a href="./signup.html">Sign Up</a></p>
@@ -75,6 +78,7 @@
                   name="submit"
                   id="loginBtn"
                   value="Login"
+                  disabled
                 />
               </div>
             </form>

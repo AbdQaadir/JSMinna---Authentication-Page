@@ -52,7 +52,7 @@
                     name="firstname"
                     id="firstname"
                     placeholder="First Name"
-                    onkeyup="validateInput(this.value, this.name);"
+                    onkeyup="handleChange(this.value, this.name);"
                   />
                   <span class="error" id="firstname-error">First Name shouldn't contain a digit and mustn't be less than 8 characters</span>
                 </div>
@@ -63,7 +63,7 @@
                     name="lastname"
                     id="lastname"
                     placeholder="Last Name"
-                    onkeyup="validateInput(this.value, this.name);"
+                    onkeyup="handleChange(this.value, this.name);"
                   />
                   <span class="error" id="lastname-error">Last Name shouldn't contain a digit and mustn't be less than 8 characters</span>
                 </div>
@@ -74,20 +74,20 @@
                     name="email"
                     id="email"
                     placeholder="test@gmail.com"
-                    onkeyup="validateInput(this.value, this.name);"
+                    onkeyup="handleChange(this.value, this.name);"
                   />
                   <span class="error" id="email-error">Please enter a valid email</span>
                 </div>
                 <div class="my-3 col-5">
-                  <label for="password1">Enter password</label>
+                  <label for="password">Enter password</label>
                   <input
                     type="password"
-                    name="password1"
-                    id="password1"
+                    name="password"
+                    id="password"
                     placeholder="* * * * * * * *"
-                    onkeyup="validateInput(this.value, this.name);"
+                    onkeyup="handleChange(this.value, this.name);"
                   />
-                  <span class="error" id="password1-error">Password mustn't be less than 8 characters</span>
+                  <span class="error" id="password-error">Password mustn't be less than 8 characters</span>
                 </div>
                 <div class="my-3 col-5">
                   <label for="password2">Confirm password</label>
@@ -96,7 +96,7 @@
                     name="password2"
                     id="password2"
                     placeholder="* * * * * * * *"
-                    onkeyup="validateInput(this.value, this.name);"
+                    onkeyup="handleChange(this.value, this.name);"
                   />
                   <span class="error" id="password2-error">Password doesn't match</span>
               </div>
